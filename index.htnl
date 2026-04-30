@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sifaks Ousmail | Official Website</title>
+  <meta name="description" content="Official website of Sifaks Ousmail. Coming soon." />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #111827, #1e1b4b);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .container { max-width: 720px; }
+
+    .tag {
+      padding: 8px 16px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 999px;
+      color: #c4b5fd;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: clamp(42px, 8vw, 86px);
+      line-height: 1;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+
+    h1 span { color: #a78bfa; }
+
+    p {
+      color: #cbd5e1;
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .link {
+      display: inline-block;
+      padding: 12px 22px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .link:hover {
+      background: rgba(167,139,250,0.2);
+      border-color: #a78bfa;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <div class="tag">Official Website</div>
+
+    <h1>SIFAKS OUSMAIL<br><span>COMING SOON</span></h1>
+
+    <p>
+      Personal website for research, projects, and academic work.
+    </p>
+
+    <a class="link" href="mailto:coachmedanny@gmail.com">Contact</a>
+  </main>
+
+  <footer>
+    © 2026 Sifaks Ousmail
+  </footer>
+</body>
+</html>

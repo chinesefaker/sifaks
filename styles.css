@@ -38,10 +38,12 @@ a{color:inherit;text-decoration:none}
 .dropdown{
   display:none;position:absolute;top:calc(100% + 8px);right:0;
   background:#0f1724;border:1px solid var(--border);border-radius:14px;
-  padding:6px;min-width:190px;z-index:100;
+  padding:6px;min-width:210px;z-index:100;
   box-shadow:0 16px 40px rgba(0,0,0,0.28);
 }
 .more-menu.open .dropdown{display:block}
+.drop-group{padding-bottom:5px;margin-bottom:5px;border-bottom:1px solid var(--border)}
+.drop-group-title{padding:7px 12px 5px;color:var(--blue);font-size:10px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase}
 .drop-item{
   display:flex;align-items:center;gap:10px;
   padding:9px 12px;border-radius:9px;
@@ -55,6 +57,8 @@ a{color:inherit;text-decoration:none}
 .hero{text-align:center;padding:28px 0 40px;display:flex;flex-direction:column;align-items:center;gap:16px}
 .hero-logo{width:100px;height:100px;border-radius:50%;border:2px solid var(--blue);color:var(--blue);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:28px;letter-spacing:0.05em;background:rgba(125,211,252,0.06);box-shadow:0 0 32px rgba(125,211,252,0.18)}
 h1{font-family:Georgia,serif;font-size:clamp(44px,8vw,90px);line-height:0.9;letter-spacing:-0.04em;color:#fff}
+.profile-label{color:var(--blue);font-size:11px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase}
+.trajectory-note{max-width:560px;color:var(--soft);font-size:14px;line-height:1.6;margin-top:-6px}
 .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,0.05);color:var(--soft);font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase}
 .pill-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px var(--blue)}
 .lead{max-width:580px;color:var(--muted);font-size:clamp(15px,1.6vw,18px);line-height:1.75}
@@ -72,6 +76,8 @@ h1{font-family:Georgia,serif;font-size:clamp(44px,8vw,90px);line-height:0.9;lett
 .kicker{color:var(--blue);font-size:11px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:8px}
 h2{font-family:Georgia,serif;font-size:clamp(26px,3.5vw,42px);letter-spacing:-0.03em;line-height:1;color:#fff}
 .section-note{max-width:320px;color:var(--muted);font-size:13px;line-height:1.6}
+.section-intro{max-width:620px;color:var(--muted);font-size:14px;line-height:1.7;margin-top:10px}
+.section-intro strong{color:var(--text)}
 
 .edu-list{display:grid;gap:8px}
 .edu-item{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px;transition:opacity 0.2s,transform 0.2s}
@@ -95,10 +101,30 @@ h2{font-family:Georgia,serif;font-size:clamp(26px,3.5vw,42px);letter-spacing:-0.
 .learning-actions a{display:inline-flex;align-items:center;min-height:36px;padding:0 12px;border-radius:10px;background:rgba(125,211,252,0.08);border:1px solid rgba(125,211,252,0.22);color:var(--blue);font-size:12px;font-weight:800;transition:transform 0.15s,background 0.15s}
 .learning-actions a:hover,.learning-actions a:focus-visible{transform:translateY(-2px);background:rgba(125,211,252,0.13);outline:none}
 
+.external-link-panel{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:12px;padding:16px 18px}
+.external-link-panel p{color:var(--soft);font-size:13px;font-weight:800}
+.external-link-panel a{display:inline-flex;align-items:center;min-height:36px;padding:0 12px;border-radius:10px;background:rgba(125,211,252,0.08);border:1px solid rgba(125,211,252,0.22);color:var(--blue);font-size:12px;font-weight:800;transition:transform 0.15s,background 0.15s}
+.external-link-panel a:hover,.external-link-panel a:focus-visible{transform:translateY(-2px);background:rgba(125,211,252,0.13);outline:none}
+
 .country-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:12px;margin-top:8px}
+.profile-card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.profile-card-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
 .country-card{padding:22px 24px}
 .country-card p{color:var(--muted);font-size:13px;line-height:1.65;margin-top:8px}
 .country-card strong,.contact-panel strong{color:var(--text)}
+.timeline{position:relative;display:grid;gap:10px;padding-left:28px}
+.timeline::before{content:"";position:absolute;left:13px;top:14px;bottom:14px;width:1px;background:rgba(125,211,252,0.28)}
+.timeline-item{position:relative;display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start;padding:14px 16px 14px 0}
+.timeline-marker{position:relative;z-index:1;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#0f1724;border:1px solid rgba(125,211,252,0.34);color:var(--blue);font-size:11px;font-weight:800}
+.timeline-title{color:#fff;font-size:15px;font-weight:800;margin-bottom:4px}
+.timeline-item p:not(.timeline-title){color:var(--muted);font-size:13px;line-height:1.6}
+.timeline-item.featured{border-radius:16px;background:rgba(125,211,252,0.055)}
+.timeline-item.featured .timeline-marker{background:var(--blue);color:#07111f;border-color:var(--blue)}
+
+.certificate-card{overflow:hidden;padding:10px}
+.certificate-card img{display:block;width:100%;height:auto;border-radius:12px}
+.certificate-card figcaption{padding:12px 4px 2px;color:var(--muted);font-size:13px;line-height:1.5;text-align:center}
+.hero-certificate{width:min(620px,100%);margin-top:2px}
 
 .soon-block{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 24px;margin-top:8px}
 .soon-title{font-family:Georgia,serif;font-size:26px;letter-spacing:-0.03em;margin-bottom:6px}
@@ -114,14 +140,14 @@ h2{font-family:Georgia,serif;font-size:clamp(26px,3.5vw,42px);letter-spacing:-0.
 footer{padding:24px 0 6px;display:flex;justify-content:space-between;color:rgba(255,255,255,0.4);font-size:12px}
 
 @media(max-width:700px){
-  .country-grid,.skill-grid{grid-template-columns:1fr}
+  .country-grid,.skill-grid,.profile-card-grid,.profile-card-grid.three{grid-template-columns:1fr}
 }
 
 @media(max-width:560px){
   .section-head{display:block}
   .section-note{margin-top:8px}
   .edu-item{grid-template-columns:1fr;gap:6px}
-  .learning-links{align-items:flex-start;flex-direction:column}
+  .learning-links,.external-link-panel{align-items:flex-start;flex-direction:column}
   .soon-block{flex-direction:column;align-items:flex-start}
   footer{flex-direction:column;gap:4px}
   .nav-link{display:none}

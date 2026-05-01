@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#080b12"/>
+  <circle cx="32" cy="32" r="27" fill="rgba(125,211,252,0.06)" stroke="#7dd3fc" stroke-width="2"/>
+  <text x="32" y="39" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="20" letter-spacing="1.5" fill="#7dd3fc">SO</text>
+</svg>

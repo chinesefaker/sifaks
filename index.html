@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Sifaks Ousmail</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,700&display=swap" rel="stylesheet">
+
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -12,91 +6,138 @@
   --text:#f8fafc;--muted:#a7b0c0;--soft:#d7dde8;
   --blue:#7dd3fc;--violet:#a78bfa;--gold:#f4d58d;
 }
-html{scroll-behavior:smooth}
 body{
-  min-height:100vh;
   background:
     radial-gradient(circle at 20% 10%,rgba(125,211,252,0.18),transparent 28%),
     radial-gradient(circle at 80% 0%,rgba(167,139,250,0.18),transparent 32%),
     var(--bg);
   color:var(--text);
   font-family:'Inter',system-ui,sans-serif;
-  overflow-x:hidden;
-}
-body::before{
-  content:"";position:fixed;inset:0;pointer-events:none;
-  background-image:linear-gradient(rgba(255,255,255,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.035) 1px,transparent 1px);
-  background-size:56px 56px;
-  mask-image:radial-gradient(circle at center,black,transparent 75%);
-  z-index:0;
 }
 a{color:inherit;text-decoration:none}
-.page{position:relative;z-index:1;width:min(1000px,calc(100% - 32px));margin:0 auto;padding:16px 0 32px}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0 20px}
+.page{width:min(1000px,calc(100% - 32px));margin:0 auto;padding:16px 0 32px}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0 20px;gap:12px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;color:var(--soft);font-size:13px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase}
 .brand-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--violet));color:#07111f;display:grid;place-items:center;font-weight:800;font-size:13px}
-.nav-links{display:flex;gap:16px;color:var(--muted);font-size:13px;font-weight:600}
-.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nav-link{color:var(--muted);font-size:13px;font-weight:600;padding:6px 10px;border-radius:8px;transition:color 0.15s}
+.nav-link:hover{color:var(--text)}
+
+.more-btn{
+  position:relative;display:inline-flex;align-items:center;gap:6px;
+  padding:7px 13px;border-radius:10px;
+  border:1px solid var(--border);background:rgba(255,255,255,0.06);
+  color:var(--soft);font-size:13px;font-weight:700;cursor:pointer;
+  transition:border-color 0.15s,background 0.15s;
+}
+.more-btn:hover{border-color:rgba(125,211,252,0.4);background:rgba(125,211,252,0.07);color:var(--text)}
+.more-btn svg{width:12px;height:12px;transition:transform 0.2s}
+.more-btn.open svg{transform:rotate(180deg)}
+
+.dropdown{
+  display:none;position:absolute;top:calc(100% + 8px);right:0;
+  background:#0f1724;border:1px solid var(--border);border-radius:14px;
+  padding:6px;min-width:160px;z-index:100;
+}
+.more-btn.open .dropdown{display:block}
+.drop-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:9px;
+  font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;
+  transition:background 0.15s,color 0.15s;
+}
+.drop-item:hover{background:rgba(125,211,252,0.08);color:var(--text)}
+.drop-item.active{color:var(--blue)}
+.flag{font-size:16px;line-height:1}
+
 .hero{text-align:center;padding:28px 0 40px;display:flex;flex-direction:column;align-items:center;gap:16px}
-.hero-logo{width:100px;height:100px;border-radius:50%;border:2px solid var(--blue);color:var(--blue);display:flex;align-items:center;justify-content:center;font-family:'Newsreader',Georgia,serif;font-size:28px;letter-spacing:0.05em;background:rgba(125,211,252,0.06);box-shadow:0 0 32px rgba(125,211,252,0.18)}
-h1{font-family:'Newsreader',Georgia,serif;font-size:clamp(44px,8vw,90px);line-height:0.9;letter-spacing:-0.06em;color:#ffffff}
+.hero-logo{width:100px;height:100px;border-radius:50%;border:2px solid var(--blue);color:var(--blue);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:28px;letter-spacing:0.05em;background:rgba(125,211,252,0.06);box-shadow:0 0 32px rgba(125,211,252,0.18)}
+h1{font-family:Georgia,serif;font-size:clamp(44px,8vw,90px);line-height:0.9;letter-spacing:-0.06em;color:#fff}
 .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,0.05);color:var(--soft);font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase}
 .pill-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px var(--blue)}
 .lead{max-width:580px;color:var(--muted);font-size:clamp(15px,1.6vw,18px);line-height:1.75}
 .lead strong{color:var(--text);font-weight:700}
 .actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
-.btn{display:inline-flex;align-items:center;min-height:42px;padding:0 18px;border-radius:12px;font-size:13px;font-weight:800;transition:transform 0.2s}
+.btn{display:inline-flex;align-items:center;min-height:42px;padding:0 18px;border-radius:12px;font-size:13px;font-weight:800;transition:transform 0.2s;cursor:pointer}
 .btn:hover{transform:translateY(-2px)}
-.btn-primary{background:linear-gradient(135deg,var(--blue),var(--violet));color:#07111f}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--violet));color:#07111f;border:none}
 .btn-secondary{border:1px solid var(--border);color:var(--soft);background:rgba(255,255,255,0.045)}
+
 .glass{border:1px solid var(--border);border-radius:20px;background:var(--card)}
 .section{padding:28px 0}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:16px}
 .kicker{color:var(--blue);font-size:11px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:8px}
-h2{font-family:'Newsreader',Georgia,serif;font-size:clamp(26px,3.5vw,42px);letter-spacing:-0.04em;line-height:1;color:#ffffff}
+h2{font-family:Georgia,serif;font-size:clamp(26px,3.5vw,42px);letter-spacing:-0.04em;line-height:1;color:#fff}
 .section-note{max-width:320px;color:var(--muted);font-size:13px;line-height:1.6}
+
 .edu-list{display:grid;gap:8px}
-.edu-item{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px}
+.edu-item{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:18px;transition:opacity 0.2s,transform 0.2s}
+.edu-item.hidden{display:none}
 .edu-year{color:var(--gold);font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding-top:2px}
 .edu-degree{font-weight:800;font-size:15px;margin-bottom:5px}
 .edu-school{color:var(--blue);font-weight:700;font-size:13px;margin-bottom:4px}
 .edu-field{color:var(--muted);font-size:13px;line-height:1.55}
+
 .tags{display:flex;flex-wrap:wrap;gap:8px}
 .tag{padding:9px 14px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,0.05);color:var(--soft);font-weight:700;font-size:12px;transition:transform 0.15s,border-color 0.15s;cursor:default}
 .tag:hover{transform:translateY(-2px);border-color:rgba(125,211,252,0.45);background:rgba(125,211,252,0.07)}
+
 .soon-block{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 24px;margin-top:8px}
-.soon-title{font-family:'Newsreader',Georgia,serif;font-size:26px;letter-spacing:-0.03em;margin-bottom:6px}
+.soon-title{font-family:Georgia,serif;font-size:26px;letter-spacing:-0.03em;margin-bottom:6px}
 .soon-desc{color:var(--muted);font-size:13px;line-height:1.6;max-width:560px}
 .status-pill{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;background:rgba(125,211,252,0.08);border:1px solid rgba(125,211,252,0.2);color:var(--blue);font-size:11px;font-weight:800;letter-spacing:0.09em;text-transform:uppercase;white-space:nowrap}
 .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);animation:pulse 1.8s infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+
 .contact-panel{display:flex;flex-direction:column;gap:16px;padding:22px 24px;margin-top:8px}
 .contact-panel p{color:var(--muted);font-size:13px;line-height:1.6;margin-top:6px}
+
 footer{padding:24px 0 6px;display:flex;justify-content:space-between;color:rgba(255,255,255,0.4);font-size:12px}
+
 @media(max-width:560px){
-  .nav-links{display:none}
   .section-head{display:block}
   .section-note{margin-top:8px}
   .edu-item{grid-template-columns:1fr;gap:6px}
   .soon-block{flex-direction:column;align-items:flex-start}
   footer{flex-direction:column;gap:4px}
+  .nav-link{display:none}
 }
 </style>
-</head>
-<body>
+
 <div class="page">
   <nav class="nav">
     <a class="brand" href="#">
       <span class="brand-mark">SO</span>
       Sifaks Ousmail
     </a>
-    <div class="nav-links">
-      <a href="#background">Background</a>
-      <a href="#research">Research</a>
-      <a href="#contact">Contact</a>
+    <div class="nav-right">
+      <a class="nav-link" href="#background">Background</a>
+      <a class="nav-link" href="#research">Research</a>
+      <a class="nav-link" href="#contact">Contact</a>
+      <div class="more-btn" id="moreBtn">
+        More
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <polyline points="2,4 6,8 10,4"/>
+        </svg>
+        <div class="dropdown" id="dropdown">
+          <div class="drop-item active" data-filter="all">
+            <span class="flag">🌍</span> All countries
+          </div>
+          <div class="drop-item" data-filter="china">
+            <span class="flag">🇨🇳</span> China
+          </div>
+          <div class="drop-item" data-filter="uk">
+            <span class="flag">🇬🇧</span> United Kingdom
+          </div>
+          <div class="drop-item" data-filter="france">
+            <span class="flag">🇫🇷</span> France
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
- 
+
   <header class="hero">
     <div class="hero-logo">SO</div>
     <h1>Sifaks<br>Ousmail</h1>
@@ -107,7 +148,7 @@ footer{padding:24px 0 6px;display:flex;justify-content:space-between;color:rgba(
       <a class="btn btn-secondary" href="#background">View background</a>
     </div>
   </header>
- 
+
   <main>
     <section class="section" id="background">
       <div class="section-head">
@@ -117,8 +158,8 @@ footer{padding:24px 0 6px;display:flex;justify-content:space-between;color:rgba(
         </div>
         <p class="section-note">An international academic trajectory connecting France, the United Kingdom, and China.</p>
       </div>
-      <div class="edu-list">
-        <article class="edu-item glass">
+      <div class="edu-list" id="eduList">
+        <article class="edu-item glass" data-country="china">
           <span class="edu-year">PhD</span>
           <div>
             <p class="edu-degree">PhD – Language Policy &amp; Language Education</p>
@@ -126,7 +167,7 @@ footer{padding:24px 0 6px;display:flex;justify-content:space-between;color:rgba(
             <p class="edu-field">Doctoral research in language policy and language education.</p>
           </div>
         </article>
-        <article class="edu-item glass">
+        <article class="edu-item glass" data-country="uk">
           <span class="edu-year">Master's</span>
           <div>
             <p class="edu-degree">Master's – Second Language Education</p>
@@ -134,7 +175,7 @@ footer{padding:24px 0 6px;display:flex;justify-content:space-between;color:rgba(
             <p class="edu-field">Faculty of Education – second language education and applied linguistics.</p>
           </div>
         </article>
-        <article class="edu-item glass">
+        <article class="edu-item glass" data-country="france">
           <span class="edu-year">Master's</span>
           <div>
             <p class="edu-degree">Master FLE – Français Langue Étrangère</p>
@@ -142,7 +183,7 @@ footer{padding:24px 0 6px;display:flex;justify-content:space-between;color:rgba(
             <p class="edu-field">Didactique des langues – French as a foreign language.</p>
           </div>
         </article>
-        <article class="edu-item glass">
+        <article class="edu-item glass" data-country="france">
           <span class="edu-year">Bachelor's</span>
           <div>
             <p class="edu-degree">Bachelor's – Linguistics</p>
@@ -152,7 +193,7 @@ footer{padding:24px 0 6px;display:flex;justify-content:space-between;color:rgba(
         </article>
       </div>
     </section>
- 
+
     <section class="section" id="research">
       <div class="section-head">
         <div>
@@ -174,7 +215,7 @@ footer{padding:24px 0 6px;display:flex;justify-content:space-between;color:rgba(
         <span class="tag">Multilingualism</span>
       </div>
     </section>
- 
+
     <div class="soon-block glass">
       <div>
         <p class="soon-title">Full website coming soon</p>
@@ -182,7 +223,7 @@ footer{padding:24px 0 6px;display:flex;justify-content:space-between;color:rgba(
       </div>
       <span class="status-pill"><span class="pulse-dot"></span>In progress</span>
     </div>
- 
+
     <div class="contact-panel glass" id="contact">
       <div>
         <p class="kicker">Get in touch</p>
@@ -193,11 +234,45 @@ footer{padding:24px 0 6px;display:flex;justify-content:space-between;color:rgba(
       <a class="btn btn-primary" href="mailto:coachmedanny@gmail.com" style="align-self:flex-start">Email me</a>
     </div>
   </main>
- 
+
   <footer>
     <span>© 2026 Sifaks Ousmail</span>
     <span>sifaks.com</span>
   </footer>
 </div>
-</body>
-</html>
+
+<script>
+const btn = document.getElementById('moreBtn');
+const dropdown = document.getElementById('dropdown');
+const items = dropdown.querySelectorAll('.drop-item');
+const cards = document.querySelectorAll('#eduList .edu-item');
+
+btn.addEventListener('click', function(e) {
+  e.stopPropagation();
+  btn.classList.toggle('open');
+});
+
+document.addEventListener('click', function() {
+  btn.classList.remove('open');
+});
+
+dropdown.addEventListener('click', function(e) {
+  e.stopPropagation();
+});
+
+items.forEach(function(item) {
+  item.addEventListener('click', function() {
+    items.forEach(function(i) { i.classList.remove('active'); });
+    item.classList.add('active');
+    const filter = item.dataset.filter;
+    cards.forEach(function(card) {
+      if (filter === 'all' || card.dataset.country === filter) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+    btn.classList.remove('open');
+  });
+});
+</script>

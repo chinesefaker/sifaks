@@ -52,4 +52,5 @@ If you want to suggest improvements:
 
 ## License
 
-No license file is currently included. Add a `LICENSE` file if you want to define reuse terms.
+This project is licensed under the MIT License © 2026 Sifaks Ousmail.  
+See the LICENSE file for full terms.

@@ -1,56 +1,53 @@
 # sifaks.com
 
-A clean, single-page personal website for **Sifaks Ousmail**.
+A clean personal academic website for **Sifaks Ousmail**.
 
 ## Overview
 
-This repository contains the source for `sifaks.com`, built as a lightweight static HTML page with embedded CSS and simple client-side interactions.
+This repository contains the source code for [sifaks.com](https://sifaks.com), a lightweight static website built with HTML, CSS, and simple client-side JavaScript.
 
-The site highlights:
-- Personal branding and introduction
-- Background and education
+The site presents:
+
+- Academic profile
 - Research interests
-- Contact section
+- International academic background
+- Publications and projects
+- Contact information
 
 ## Project Structure
 
-- `index.html` — Main page markup, styling, and UI behavior.
+- `index.html` — Homepage
+- `background.html` — Academic background
+- `research.html` — Research profile
+- `china.html` — China profile page
+- `uk.html` — United Kingdom profile page
+- `france.html` — France profile page
+- `blog.html` — Blog and reflections
+- `projects.html` — Research projects
+- `publications.html` — Publications and outputs
+- `contact.html` — Contact page
+- `styles.css` — Website styling
+- `script.js` — Client-side interactions
+- `favicon.svg` — Website favicon
 
-## Getting Started
+## Local Preview
 
-### 1) Open directly
-You can open `index.html` in any modern browser.
+Open `index.html` directly in a browser, or run a local server:
 
-### 2) Run a local server (recommended)
 ```bash
-cd /workspace/sifaks
 python3 -m http.server 8000
-```
-Then visit: `http://localhost:8000`
+Then visit:
+http://localhost:8000
+eployment
 
-## Editing
+This website is deployed as a static site using GitHub Pages and connected to the custom domain:
 
-To update site content or design:
-1. Edit `index.html`
-2. Refresh your browser to see changes
+https://sifaks.com
 
-## Deployment
+License
 
-Because this is a static site, it can be deployed easily to:
-- GitHub Pages
-- Netlify
-- Vercel
-- Any static hosting provider
-
-## Contributing
-
-If you want to suggest improvements:
-1. Fork the repo
-2. Create a feature branch
-3. Commit your changes
-4. Open a pull request
-
-## License
-
-This project is licensed under the MIT License © 2026 Sifaks Ousmail.  
+This project is licensed under the MIT License © 2026 Sifaks Ousmail.
 See the LICENSE file for full terms.
+
+
+I removed the fake `/workspace/sifaks` path and updated it because your site is no longer single-page.

@@ -19,7 +19,7 @@ a{color:inherit;text-decoration:none}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0 20px;gap:12px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;color:var(--soft);font-size:13px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase}
 .brand-home-stack{display:flex;flex-direction:column;align-items:center;gap:1px}
-.brand-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--violet));color:#07111f;display:grid;place-items:center;font-weight:800;font-size:13px}
+.brand-mark{width:38px;height:38px;border-radius:50%;display:block;object-fit:contain;box-shadow:0 0 16px rgba(125,211,252,0.12)}
 .brand-home{display:block;color:var(--muted);font-size:8px!important;font-weight:500;letter-spacing:0;line-height:1;text-transform:none;transform:scale(0.85);transform-origin:top center}
 .nav-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .nav-link{color:var(--muted);font-size:13px;font-weight:600;padding:6px 10px;border-radius:8px;transition:color 0.15s}
@@ -58,7 +58,7 @@ a{color:inherit;text-decoration:none}
 .flag{font-size:16px;line-height:1}
 
 .hero{text-align:center;padding:28px 0 40px;display:flex;flex-direction:column;align-items:center;gap:16px}
-.hero-logo{width:100px;height:100px;border-radius:50%;border:2px solid var(--blue);color:var(--blue);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:28px;letter-spacing:0.05em;background:rgba(125,211,252,0.06);box-shadow:0 0 32px rgba(125,211,252,0.18)}
+.hero-logo{width:112px;height:112px;border-radius:50%;display:block;object-fit:contain;box-shadow:0 0 32px rgba(125,211,252,0.18)}
 h1{font-family:Georgia,serif;font-size:clamp(44px,8vw,90px);line-height:0.9;letter-spacing:-0.04em;color:#fff}
 .profile-label{color:var(--blue);font-size:11px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase}
 .trajectory-note{max-width:560px;color:var(--soft);font-size:14px;line-height:1.6;margin-top:-6px}

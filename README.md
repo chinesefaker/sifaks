@@ -48,6 +48,3 @@ License
 
 This project is licensed under the MIT License © 2026 Sifaks Ousmail.
 See the LICENSE file for full terms.
-
-
-I removed the fake `/workspace/sifaks` path and updated it because your site is no longer single-page.

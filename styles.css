@@ -62,7 +62,39 @@ img{max-width:100%;height:auto}
 .flag{font-size:16px;line-height:1}
 
 .hero{text-align:center;padding:28px 0 40px;display:flex;flex-direction:column;align-items:center;gap:16px}
-.hero-logo{width:112px;height:112px}
+.home-hero{position:relative;isolation:isolate;overflow:hidden;border-radius:24px}
+.home-hero > :not(.language-cloud){position:relative;z-index:1}
+.language-cloud{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;-webkit-mask-image:radial-gradient(circle at center,black 0 58%,transparent 82%);mask-image:radial-gradient(circle at center,black 0 58%,transparent 82%)}
+.lang-token{
+  position:absolute;display:inline-flex;align-items:center;justify-content:center;
+  min-height:30px;padding:6px 11px;border:1px solid rgba(125,211,252,0.13);
+  border-radius:999px;background:rgba(255,255,255,0.025);
+  color:rgba(215,221,232,0.2);font-size:12px;font-weight:700;letter-spacing:0.04em;
+  white-space:nowrap;animation:languageDrift 18s ease-in-out infinite;
+}
+.token-1{left:8%;top:18%;animation-delay:-2s}
+.token-2{right:10%;top:20%;animation-delay:-7s}
+.token-3{left:18%;bottom:22%;animation-delay:-11s}
+.token-4{right:18%;bottom:20%;animation-delay:-4s}
+.token-5{left:3%;top:54%;animation-delay:-13s}
+.token-6{right:5%;top:58%;animation-delay:-9s}
+.token-7{left:32%;top:10%;animation-delay:-15s}
+.token-8{right:28%;top:43%;animation-delay:-5s}
+.token-9{left:30%;bottom:9%;animation-delay:-17s}
+.token-10{right:26%;bottom:8%;animation-delay:-1s}
+.token-11{left:45%;top:27%;animation-delay:-12s}
+.token-12{left:9%;bottom:8%;animation-delay:-6s}
+.token-13{right:12%;bottom:31%;animation-delay:-16s}
+.token-14{left:14%;top:39%;animation-delay:-3s}
+.token-15{right:36%;top:13%;animation-delay:-10s}
+.token-16{right:7%;bottom:9%;animation-delay:-14s}
+.home-hero .hero-logo{animation:heroLogoIn 0.9s ease-out,soBubbleDrift 7.5s ease-in-out 0.9s infinite,soBubbleGlow 6s ease-in-out 1s infinite}
+.home-hero h1,.home-hero .pill,.home-hero .hero-copy,.home-hero .actions{animation:heroFadeUp 0.75s ease-out both}
+.home-hero h1{animation-delay:0.12s}
+.home-hero .pill{animation-delay:0.2s}
+.home-hero .hero-copy{animation-delay:0.28s}
+.home-hero .actions{animation-delay:0.36s}
+.hero-logo{width:112px;height:112px;transform-origin:center;will-change:transform,filter;animation:soBubbleDrift 7.5s ease-in-out infinite,soBubbleGlow 6s ease-in-out infinite}
 .section-logo{margin:0 auto 18px}
 h1{font-family:Georgia,serif;font-size:clamp(44px,8vw,90px);line-height:0.9;letter-spacing:-0.04em;color:#fff}
 .profile-label{color:var(--blue);font-size:11px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase}
@@ -166,9 +198,41 @@ footer{padding:24px 0 6px;display:flex;justify-content:space-between;color:rgba(
   .mobile-main-links{display:block}
   .drop-item{min-height:44px;padding:11px 12px;font-size:14px}
   .drop-group-title{padding-top:9px}
+  .lang-token{font-size:11px;color:rgba(215,221,232,0.16);border-color:rgba(125,211,252,0.1)}
+  .token-8,.token-10,.token-12,.token-14,.token-16{display:none}
 }
 
 .brand:focus-visible,.nav-link:focus-visible,.more-btn:focus-visible,.drop-item:focus-visible,.btn:focus-visible,.inline-link:focus-visible,.learning-actions a:focus-visible,.external-link-panel a:focus-visible{
   outline:2px solid rgba(125,211,252,0.75);
   outline-offset:3px;
+}
+
+@keyframes languageDrift{
+  0%,100%{transform:translate3d(0,0,0);opacity:0.35}
+  45%{transform:translate3d(12px,-14px,0);opacity:0.72}
+  70%{transform:translate3d(-10px,8px,0);opacity:0.5}
+}
+@keyframes heroLogoIn{
+  from{opacity:0.72;transform:translateY(8px) scale(0.94)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes soBubbleDrift{
+  0%,100%{transform:translate3d(0,0,0) scale(1)}
+  34%{transform:translate3d(2px,-6px,0) scale(1.018)}
+  68%{transform:translate3d(-2px,-3px,0) scale(0.998)}
+}
+@keyframes soBubbleGlow{
+  0%,100%{filter:drop-shadow(0 0 10px rgba(125,211,252,0.1))}
+  42%{filter:drop-shadow(0 0 13px rgba(125,211,252,0.2)) drop-shadow(0 0 18px rgba(167,139,250,0.1))}
+  72%{filter:drop-shadow(0 0 9px rgba(167,139,250,0.14))}
+}
+@keyframes heroFadeUp{
+  from{opacity:0.78;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .lang-token,.hero-logo,.home-hero h1,.home-hero .pill,.home-hero .hero-copy,.home-hero .actions{
+    animation:none;
+  }
 }

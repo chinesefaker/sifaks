@@ -2,15 +2,19 @@ const moreMenu = document.getElementById('moreMenu');
 const moreBtn = document.getElementById('moreBtn');
 
 if (moreMenu && moreBtn) {
+  const setMenuState = (isOpen) => {
+    moreMenu.classList.toggle('open', isOpen);
+    document.body.classList.toggle('menu-open', isOpen);
+    moreBtn.setAttribute('aria-expanded', String(isOpen));
+  };
+
   const closeMenu = () => {
-    moreMenu.classList.remove('open');
-    moreBtn.setAttribute('aria-expanded', 'false');
+    setMenuState(false);
   };
 
   moreBtn.addEventListener('click', (event) => {
     event.stopPropagation();
-    const isOpen = moreMenu.classList.toggle('open');
-    moreBtn.setAttribute('aria-expanded', String(isOpen));
+    setMenuState(!moreMenu.classList.contains('open'));
   });
 
   moreMenu.addEventListener('click', (event) => {
@@ -43,6 +47,8 @@ const translationEntries = [
   ['nav.more', 'More', 'Plus', '更多'],
   ['nav.mainLinks', 'Main links', 'Liens principaux', '主要链接'],
   ['nav.internationalProfile', 'International Profile', 'Profil international', '国际简介'],
+  ['nav.softwareCtaTitle', 'SIFAKS © Software', 'SIFAKS © Software', 'SIFAKS © Software'],
+  ['nav.softwareCtaSub', 'Pronunciation for Chinese learners of French', 'Prononciation pour apprenants chinois du français', '面向中文母语法语学习者的发音'],
   ['country.china', 'China', 'Chine', '中国'],
   ['country.ukShort', 'UK', 'Royaume-Uni', '英国'],
   ['country.france', 'France', 'France', '法国'],
@@ -55,15 +61,33 @@ const translationEntries = [
   ['home.note', 'This site is a growing space for language and linguistics lovers, connecting research, multilingual education, and practical pathways for Chinese, English, and French language learning.', 'Ce site est un espace en développement pour les passionnés de langues et de linguistique, reliant recherche, éducation multilingue et parcours pratiques pour l’apprentissage du chinois, de l’anglais et du français.', '本站是一个面向语言与语言学爱好者的成长空间，连接研究、多语教育以及中文、英语和法语学习的实践路径。'],
   ['home.viewBackground', 'View background', 'Voir le parcours', '查看背景'],
   ['home.kicker', 'Academic Profile', 'Profil académique', '学术简介'],
-  ['home.overviewTitle', 'Research & International Profile', 'Recherche et profil international', '研究与国际简介'],
-  ['home.overviewNote', 'A concise overview of research interests, international academic training, and ongoing work in language education.', 'Un aperçu concis des intérêts de recherche, de la formation académique internationale et des travaux en éducation aux langues.', '简要介绍研究兴趣、国际学术训练以及语言教育领域的持续工作。'],
+  ['home.overviewTitle', 'Academic Work & International Profile', 'Travail académique et profil international', '学术工作与国际简介'],
+  ['home.overviewNote', 'Sifaks Ousmail works across applied linguistics, language education, second language acquisition, Cambridge and Shanghai academic contexts, and Chinese/French language learning.', 'Sifaks Ousmail travaille entre linguistique appliquée, éducation aux langues, acquisition des langues secondes, contextes académiques de Cambridge et Shanghai, et apprentissage du chinois et du français.', 'Sifaks Ousmail 的工作涵盖应用语言学、语言教育、第二语言习得、剑桥与上海的学术语境，以及中文/法语学习。'],
+  ['home.cardResearchKicker', 'Core interests', 'Intérêts principaux', '核心兴趣'],
+  ['home.researchCardTitle', 'Research Areas', 'Axes de recherche', '研究领域'],
   ['home.researchCard', 'Research interests across applied linguistics, second language acquisition, language policy, and AI-assisted language learning. This section outlines the broad academic areas shaping the site.', 'Des intérêts de recherche en linguistique appliquée, acquisition des langues secondes, politique linguistique et apprentissage des langues assisté par l’IA. Cette section présente les grands axes académiques du site.', '研究兴趣涵盖应用语言学、第二语言习得、语言政策和人工智能辅助语言学习。本部分概述塑造本站的主要学术方向。'],
-  ['home.profileCardTitle', 'International Profile', 'Profil international', '国际简介'],
+  ['home.cardProfileKicker', 'Academic path', 'Parcours académique', '学术路径'],
+  ['home.profileCardTitle', 'International Academic Profile', 'Profil académique international', '国际学术简介'],
   ['home.profileCard', 'An international academic path connecting France, the United Kingdom, and China through French language learning, Chinese language learning, Cambridge, and Shanghai International Studies University.', 'Un parcours académique international reliant la France, le Royaume-Uni et la Chine à travers l’apprentissage du français, du chinois, Cambridge et l’Université des études internationales de Shanghai.', '一条连接法国、英国和中国的国际学术路径，涉及法语学习、中文学习、剑桥以及上海外国语大学。'],
-  ['home.outputsCardTitle', 'Publications & Projects', 'Publications et projets', '出版物与项目'],
+  ['home.cardOutputsKicker', 'Ongoing work', 'Travaux en cours', '持续工作'],
+  ['home.outputsCardTitle', 'Projects & Publications', 'Projets et publications', '项目与出版物'],
   ['home.outputsCard', 'Publications, working papers, conference outputs, and ongoing project work connected to multilingual education, FLE, pronunciation learning, and metacognition.', 'Publications, documents de travail, communications et projets en cours liés à l’éducation multilingue, au FLE, à l’apprentissage de la prononciation et à la métacognition.', '出版物、工作论文、会议成果和正在进行的项目，涉及多语教育、对外法语、语音学习和元认知。'],
+  ['home.cardBlogKicker', 'Notes', 'Notes', '笔记'],
+  ['home.blogCardTitle', 'Blog & Reflections', 'Blog et réflexions', '博客与思考'],
   ['home.blogCard', 'A reflection space for language learning, linguistics, AI-assisted learning, French grammar, Chinese learning, and ideas emerging from academic work.', 'Un espace de réflexion sur l’apprentissage des langues, la linguistique, l’apprentissage assisté par l’IA, la grammaire française, l’apprentissage du chinois et les idées issues du travail académique.', '一个关于语言学习、语言学、人工智能辅助学习、法语语法、中文学习以及学术工作中产生的想法的反思空间。'],
-  ['home.academicProfiles', 'Academic profiles', 'Profils académiques', '学术主页'],
+  ['home.learnMoreArrow', 'Learn more →', 'En savoir plus →', '了解更多 →'],
+  ['home.focusTitle', 'Research Focus', 'Axes de recherche', '研究重点'],
+  ['home.focusApplied', 'Applied Linguistics', 'Linguistique appliquée', '应用语言学'],
+  ['home.focusEducation', 'Language Education', 'Éducation aux langues', '语言教育'],
+  ['home.focusSla', 'Second Language Acquisition', 'Acquisition des langues secondes', '第二语言习得'],
+  ['home.focusAi', 'AI-assisted Language Learning', 'Apprentissage des langues assisté par l’IA', '人工智能辅助语言学习'],
+  ['home.focusFrench', 'French Linguistics', 'Linguistique française', '法语语言学'],
+  ['home.focusChinese', 'Chinese Language Learning', 'Apprentissage du chinois', '中文学习'],
+  ['home.softwareKicker', 'Software preview', 'Aperçu logiciel', '软件预览'],
+  ['home.softwareTitle', 'AI Language Tools — Preview in development', 'Outils linguistiques IA — aperçu en développement', '人工智能语言工具 — 开发预览'],
+  ['home.softwareCopy', 'Experimental tools by Sifaks Ousmail for AI-assisted pronunciation feedback, multilingual language education, applied linguistics, and French/Chinese language learning.', 'Outils expérimentaux de Sifaks Ousmail pour le feedback de prononciation assisté par l’IA, l’éducation multilingue, la linguistique appliquée et l’apprentissage du français/chinois.', 'Sifaks Ousmail 的实验性工具，面向 AI 辅助发音反馈、多语语言教育、应用语言学以及法语/中文学习。'],
+  ['home.softwareLink', 'Open software preview →', 'Ouvrir l’aperçu logiciel →', '打开软件预览 →'],
+  ['home.academicProfiles', 'External Academic Profiles', 'Profils académiques externes', '外部学术主页'],
   ['background.title', 'Background', 'Parcours', '背景'],
   ['background.pill', 'Academic Path', 'Parcours académique', '学术路径'],
   ['background.subtitle', 'Academic journey across France, the United Kingdom, and China.', 'Parcours académique entre la France, le Royaume-Uni et la Chine.', '横跨法国、英国和中国的学术旅程。'],
@@ -123,6 +147,57 @@ const translationEntries = [
   ['projects.pronunciationDesc', 'Exploration of how AI tools can support pronunciation practice, feedback, and learner autonomy in second language acquisition.', 'Exploration de la manière dont les outils d’IA peuvent soutenir la pratique de la prononciation, le feedback et l’autonomie dans l’acquisition des langues secondes.', '探索 AI 工具如何在第二语言习得中支持发音练习、反馈和学习者自主性。'],
   ['projects.multilingual', 'Multilingual Language Education', 'Éducation multilingue', '多语语言教育'],
   ['projects.multilingualDesc', 'Work connecting French, English, and Chinese language learning with broader questions in language education and applied linguistics.', 'Travail reliant l’apprentissage du français, de l’anglais et du chinois à des questions plus larges en éducation aux langues et linguistique appliquée.', '将法语、英语和中文学习与语言教育和应用语言学中的更广泛问题联系起来。'],
+  ['projects.software', 'SIFAKS © Software', 'SIFAKS © Software', 'SIFAKS © Software'],
+  ['projects.softwareDesc', 'A short preview of EuuuhFrench, an in-development AI-assisted French pronunciation tool for Chinese learners of French, connected to applied linguistics and language education.', 'Un court aperçu d’EuuuhFrench, un outil de prononciation française assisté par l’IA en développement pour les apprenants chinois du français, relié à la linguistique appliquée et à l’éducation aux langues.', 'EuuuhFrench 的简短预览：一款正在开发中的 AI 辅助法语发音工具，面向中文母语的法语学习者，并与应用语言学和语言教育相关。'],
+  ['projects.softwareLink', 'Open software preview →', 'Ouvrir l’aperçu logiciel →', '打开软件预览 →'],
+  ['software.title', 'SIFAKS © Software', 'SIFAKS © Software', 'SIFAKS © Software'],
+  ['software.status', 'Prototype preview · In development', 'Aperçu de prototype · En développement', '原型预览 · 开发中'],
+  ['software.subtitle', 'EuuuhFrench — AI-assisted French pronunciation support for Chinese learners', 'EuuuhFrench — soutien à la prononciation française assisté par l’IA pour les apprenants chinois', 'EuuuhFrench — 面向中文母语学习者的 AI 辅助法语发音支持'],
+  ['software.viewPreview', 'View preview', 'Voir l’aperçu', '查看预览'],
+  ['software.backProjects', 'Back to projects', 'Retour aux projets', '返回项目'],
+  ['software.aboutKicker', 'About the project', 'À propos du projet', '项目介绍'],
+  ['software.aboutTitle', 'Experimental pronunciation support', 'Soutien expérimental à la prononciation', '实验性发音支持'],
+  ['software.aboutText', 'EuuuhFrench is an experimental language learning tool by Sifaks Ousmail. It explores how AI-assisted feedback, applied linguistics, and language education can support Chinese learners of French pronunciation.', 'EuuuhFrench est un outil expérimental d’apprentissage des langues par Sifaks Ousmail. Il explore comment le feedback assisté par l’IA, la linguistique appliquée et l’éducation aux langues peuvent soutenir les apprenants chinois dans la prononciation du français.', 'EuuuhFrench 是 Sifaks Ousmail 开发的实验性语言学习工具，探索 AI 辅助反馈、应用语言学和语言教育如何支持中文母语学习者的法语发音。'],
+  ['software.aimsKicker', 'Learning support', 'Soutien à l’apprentissage', '学习支持'],
+  ['software.aimsTitle', 'What it aims to help with', 'Ce que l’outil vise à soutenir', '它希望帮助的方面'],
+  ['software.aimsNote', 'The prototype focuses on careful, research-informed pronunciation guidance rather than a public product launch.', 'Le prototype se concentre sur un accompagnement de prononciation prudent et informé par la recherche, plutôt que sur le lancement d’un produit public.', '该原型关注谨慎且基于研究的发音指导，而不是公开产品发布。'],
+  ['software.cardPronunciation', 'French pronunciation practice', 'Pratique de la prononciation française', '法语发音练习'],
+  ['software.cardPronunciationDesc', 'Focused practice for sounds, rhythm, and pronunciation patterns in French.', 'Une pratique ciblée des sons, du rythme et des schémas de prononciation en français.', '针对法语语音、节奏和发音模式的重点练习。'],
+  ['software.cardFeedback', 'AI-assisted feedback', 'Feedback assisté par l’IA', 'AI 辅助反馈'],
+  ['software.cardFeedbackDesc', 'Exploring how automated feedback can guide learners without replacing teaching or research judgment.', 'Explorer comment le feedback automatisé peut guider les apprenants sans remplacer l’enseignement ni le jugement de recherche.', '探索自动化反馈如何指导学习者，同时不取代教学和研究判断。'],
+  ['software.cardLearners', 'Chinese learners of French', 'Apprenants chinois du français', '中文母语的法语学习者'],
+  ['software.cardLearnersDesc', 'Designed around challenges that can appear when Chinese-speaking learners work on French pronunciation.', 'Conçu autour des difficultés qui peuvent apparaître lorsque des apprenants sinophones travaillent la prononciation française.', '围绕中文母语学习者练习法语发音时可能遇到的困难进行设计。'],
+  ['software.cardApplied', 'Applied linguistics and language education', 'Linguistique appliquée et éducation aux langues', '应用语言学与语言教育'],
+  ['software.cardAppliedDesc', 'Connected to language learning research, pronunciation pedagogy, and multilingual education.', 'Relié à la recherche sur l’apprentissage des langues, à la pédagogie de la prononciation et à l’éducation multilingue.', '与语言学习研究、发音教学和多语教育相关。'],
+  ['software.previewKicker', 'Concept preview', 'Aperçu du concept', '概念预览'],
+  ['software.previewTitle', 'Prototype learning interface', 'Interface d’apprentissage prototype', '原型学习界面'],
+  ['software.previewNote', 'This static preview reflects the EuuuhFrench prototype direction, not a final public release.', 'Cet aperçu statique reflète l’orientation du prototype EuuuhFrench, et non une version publique finale.', '该静态预览展示 EuuuhFrench 原型方向，并非最终公开版本。'],
+  ['software.practiceLabel', 'Practice sentence', 'Phrase d’entraînement', '练习句子'],
+  ['software.mockCoach', 'AI pronunciation coach', 'Coach de prononciation IA', 'AI 发音教练'],
+  ['software.mockMode', 'Prototype mode', 'Mode prototype', '原型模式'],
+  ['software.mockTarget', 'Target sound · /ø/', 'Son cible · /ø/', '目标音 · /ø/'],
+  ['software.mockAttempt', 'Attempt 1 of 4', 'Essai 1 sur 4', '第 1 / 4 次尝试'],
+  ['software.mockHint', 'Listen carefully, then repeat the full sentence.', 'Écoutez attentivement, puis répétez la phrase complète.', '仔细听，然后重复完整句子。'],
+  ['software.mockRecordNote', 'Preview mode does not score recordings yet.', 'Le mode aperçu ne note pas encore les enregistrements.', '预览模式尚不对录音评分。'],
+  ['software.mockRecordButton', 'Record', 'Enregistrer', '录音'],
+  ['software.mockFeedbackKicker', 'AI-assisted feedback preview', 'Aperçu du feedback assisté par l’IA', 'AI 辅助反馈预览'],
+  ['software.mockFeedbackTitle', 'Clearer guidance after each attempt', 'Des indications plus claires après chaque essai', '每次尝试后获得更清晰的指导'],
+  ['software.mockFeedbackBody', 'Focus on the rounded /ø/ vowel, keep the lips stable, then connect the sound inside the full sentence.', 'Concentrez-vous sur la voyelle arrondie /ø/, gardez les lèvres stables, puis reliez le son dans la phrase complète.', '注意圆唇元音 /ø/，保持嘴唇稳定，然后把这个音连接到完整句子中。'],
+  ['software.mockDisclaimer', 'Static prototype preview · real pronunciation analysis is still in development.', 'Aperçu statique du prototype · l’analyse réelle de la prononciation est encore en développement.', '静态原型预览 · 真实发音分析仍在开发中。'],
+  ['software.stepRecord', 'Record pronunciation', 'Enregistrer la prononciation', '录制发音'],
+  ['software.stepFeedback', 'Receive focused feedback', 'Recevoir un feedback ciblé', '获得重点反馈'],
+  ['software.stepRetry', 'Try again with clearer guidance', 'Réessayer avec des indications plus claires', '根据更清晰的指导再次尝试'],
+  ['software.researchKicker', 'Research connection', 'Lien avec la recherche', '研究关联'],
+  ['software.researchTitle', 'Language learning and research', 'Apprentissage des langues et recherche', '语言学习与研究'],
+  ['software.researchText', 'The project connects to second language acquisition, French as a foreign language, Chinese-speaking learners, pronunciation learning, and AI-supported language education.', 'Le projet est relié à l’acquisition des langues secondes, au français langue étrangère, aux apprenants sinophones, à l’apprentissage de la prononciation et à l’éducation aux langues soutenue par l’IA.', '该项目连接第二语言习得、对外法语、中文母语学习者、发音学习和 AI 支持的语言教育。'],
+  ['software.focusTitle', 'Connected areas', 'Domaines associés', '相关领域'],
+  ['software.focusSla', 'Second Language Acquisition', 'Acquisition des langues secondes', '第二语言习得'],
+  ['software.focusFle', 'French as a Foreign Language', 'Français langue étrangère', '对外法语'],
+  ['software.focusChineseLearners', 'Chinese-speaking learners', 'Apprenants sinophones', '中文母语学习者'],
+  ['software.focusPronunciation', 'Pronunciation learning', 'Apprentissage de la prononciation', '发音学习'],
+  ['software.focusAi', 'AI-supported language education', 'Éducation aux langues soutenue par l’IA', 'AI 支持的语言教育'],
+  ['software.statusKicker', 'Development status', 'Statut de développement', '开发状态'],
+  ['software.statusText', 'This project is currently in development. The page presents the concept and early direction rather than a public release.', 'Ce projet est actuellement en développement. Cette page présente le concept et l’orientation initiale plutôt qu’une version publique.', '该项目目前正在开发中。本页展示概念和早期方向，而不是公开发布版本。'],
   ['publications.title', 'Publications', 'Publications', '出版物'],
   ['publications.pill', 'My Research', 'Mes recherches', '我的研究'],
   ['publications.lead', 'A space for publications, academic writing, conference work, and research outputs in language policy, language education, and applied linguistics.', 'Un espace pour les publications, l’écriture académique, les communications et les productions de recherche en politique linguistique, éducation aux langues et linguistique appliquée.', '用于展示语言政策、语言教育和应用语言学领域的出版物、学术写作、会议工作和研究成果。'],
@@ -278,6 +353,11 @@ const registerTranslatableElements = () => {
     'main h2',
     'main h3',
     'main p',
+    'main .card-kicker',
+    'main .focus-tags span',
+    'main .software-tools-title',
+    'main .software-tools-copy',
+    'main .software-tools-link .inline-link',
     'main a',
     'main .pill',
     'main .btn',
@@ -357,6 +437,22 @@ const initTranslations = () => {
   applyLanguage(localStorage.getItem('preferredLanguage') || 'en');
 };
 
+const createSiteBackground = () => {
+  if (!document.body || document.querySelector('.site-background')) return;
+
+  const background = document.createElement('div');
+  background.className = 'site-background';
+  background.setAttribute('aria-hidden', 'true');
+
+  for (let index = 0; index < 4; index += 1) {
+    const blob = document.createElement('span');
+    blob.className = 'site-aurora-blob';
+    background.appendChild(blob);
+  }
+
+  document.body.prepend(background);
+};
+
 const createLanguageClouds = () => {
   const languages = [
     '中文',
@@ -430,7 +526,7 @@ const createShaderBackground = () => {
   `;
 
   const fragmentSource = `
-    precision mediump float;
+    precision highp float;
     uniform vec2 uResolution;
     uniform float uTime;
 
@@ -446,26 +542,28 @@ const createShaderBackground = () => {
       vec2 uv = gl_FragCoord.xy / uResolution.xy;
       vec2 field = (uv - 0.5) * vec2(uResolution.x / uResolution.y, 1.0);
 
-      float vignette = smoothstep(0.86, 0.22, length(field));
-      float drift = sin(field.x * 5.0 + uTime * 0.28) * 0.08;
+      float vignette = smoothstep(0.98, 0.18, length(field));
+      float drift = sin(field.x * 5.0 + uTime * 0.24) * 0.07;
       float lines = 0.0;
 
-      for (int i = 0; i < 6; i++) {
+      for (int i = 0; i < 7; i++) {
         float index = float(i);
-        float base = -0.38 + index * 0.15;
-        float y = base + drift + sin(field.x * (2.2 + index * 0.18) + uTime * (0.18 + index * 0.025)) * 0.045;
-        float width = 0.006 + wave(uTime * 0.24 + index) * 0.006;
-        lines += softLine(y, width, field.y) * (0.18 + index * 0.018);
+        float base = -0.46 + index * 0.15;
+        float y = base + drift + sin(field.x * (2.35 + index * 0.16) + uTime * (0.16 + index * 0.022)) * 0.042;
+        float width = 0.0036 + wave(uTime * 0.2 + index) * 0.0034;
+        float trail = softLine(y, width, field.y) * (0.2 + index * 0.018);
+        float core = softLine(y, width * 0.42, field.y) * (0.055 + index * 0.004);
+        lines += trail + core;
       }
 
       float grid = smoothstep(0.996, 1.0, wave(field.x * 18.0 + uTime * 0.08))
         + smoothstep(0.997, 1.0, wave(field.y * 14.0 - uTime * 0.06));
-      grid *= 0.025;
+      grid *= 0.007;
 
       vec3 blue = vec3(0.49, 0.83, 0.99);
       vec3 violet = vec3(0.65, 0.55, 0.98);
       vec3 color = mix(blue, violet, uv.x);
-      float alpha = clamp((lines + grid) * vignette, 0.0, 0.42);
+      float alpha = clamp((lines + grid) * vignette, 0.0, 0.5);
 
       gl_FragColor = vec4(color * alpha, alpha);
     }
@@ -521,7 +619,7 @@ const createShaderBackground = () => {
   let startTime = performance.now();
 
   const resizeCanvas = () => {
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.6);
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
     const width = Math.floor(window.innerWidth * pixelRatio);
     const height = Math.floor(window.innerHeight * pixelRatio);
 
@@ -567,5 +665,6 @@ const createShaderBackground = () => {
 };
 
 initTranslations();
+createSiteBackground();
 createLanguageClouds();
 createShaderBackground();

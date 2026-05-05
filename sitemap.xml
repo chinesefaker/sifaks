@@ -49,6 +49,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sifaks.com/software.html</loc>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sifaks.com/publications.html</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>

@@ -542,30 +542,45 @@ const createShaderBackground = () => {
       vec2 uv = gl_FragCoord.xy / uResolution.xy;
       vec2 field = (uv - 0.5) * vec2(uResolution.x / uResolution.y, 1.0);
 
-      float vignette = smoothstep(0.98, 0.18, length(field));
-      float drift = sin(field.x * 5.0 + uTime * 0.24) * 0.07;
-      float lines = 0.0;
+      float vignette = smoothstep(1.08, 0.16, length(field));
+      float horizon = smoothstep(-0.72, -0.22, field.y) * smoothstep(0.78, 0.18, field.y);
+      vec3 blue = vec3(0.49, 0.83, 0.99);
+      vec3 cyan = vec3(0.36, 0.91, 0.95);
+      vec3 violet = vec3(0.65, 0.55, 0.98);
 
-      for (int i = 0; i < 7; i++) {
+      vec3 color = vec3(0.0);
+      float alpha = 0.0;
+
+      for (int i = 0; i < 10; i++) {
         float index = float(i);
-        float base = -0.46 + index * 0.15;
-        float y = base + drift + sin(field.x * (2.35 + index * 0.16) + uTime * (0.16 + index * 0.022)) * 0.042;
-        float width = 0.0036 + wave(uTime * 0.2 + index) * 0.0034;
-        float trail = softLine(y, width, field.y) * (0.2 + index * 0.018);
-        float core = softLine(y, width * 0.42, field.y) * (0.055 + index * 0.004);
-        lines += trail + core;
+        float base = -0.54 + index * 0.115;
+        float phase = index * 0.72;
+        float curve = base
+          + sin(field.x * (2.1 + index * 0.12) + uTime * (0.085 + index * 0.006) + phase) * 0.058
+          + sin(field.x * (5.1 - index * 0.08) - uTime * 0.052 + phase) * 0.018;
+
+        float veilWidth = 0.032 + wave(uTime * 0.12 + index) * 0.022;
+        float coreWidth = 0.0038 + wave(uTime * 0.18 + index * 1.6) * 0.0028;
+        float veil = softLine(curve, veilWidth, field.y) * (0.034 + index * 0.004);
+        float core = softLine(curve, coreWidth, field.y) * (0.152 + index * 0.004);
+        float ridge = softLine(curve + sin(field.x * 8.0 + phase) * 0.011, coreWidth * 0.42, field.y) * 0.072;
+        float sideLight = softLine(curve + 0.023, coreWidth * 1.45, field.y) * 0.036;
+
+        vec3 bandColor = mix(cyan, violet, wave(index * 1.21 + uv.x * 2.1));
+        bandColor = mix(bandColor, blue, smoothstep(0.0, 0.85, uv.y) * 0.32);
+
+        float band = (veil + core + ridge + sideLight) * horizon;
+        color += bandColor * band;
+        alpha += (veil * 0.54 + core + ridge + sideLight) * horizon;
       }
 
-      float grid = smoothstep(0.996, 1.0, wave(field.x * 18.0 + uTime * 0.08))
-        + smoothstep(0.997, 1.0, wave(field.y * 14.0 - uTime * 0.06));
-      grid *= 0.007;
+      float upperArc = softLine(0.34 + sin(field.x * 2.8 + uTime * 0.05) * 0.04, 0.015, field.y) * 0.042;
+      float lowerArc = softLine(-0.36 + sin(field.x * 3.4 - uTime * 0.045) * 0.035, 0.012, field.y) * 0.031;
 
-      vec3 blue = vec3(0.49, 0.83, 0.99);
-      vec3 violet = vec3(0.65, 0.55, 0.98);
-      vec3 color = mix(blue, violet, uv.x);
-      float alpha = clamp((lines + grid) * vignette, 0.0, 0.5);
+      color += mix(blue, violet, uv.x) * (upperArc + lowerArc) * vignette;
+      alpha = clamp((alpha + upperArc + lowerArc) * vignette, 0.0, 0.72);
 
-      gl_FragColor = vec4(color * alpha, alpha);
+      gl_FragColor = vec4(color * vignette, alpha);
     }
   `;
 
@@ -619,7 +634,7 @@ const createShaderBackground = () => {
   let startTime = performance.now();
 
   const resizeCanvas = () => {
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2.5);
     const width = Math.floor(window.innerWidth * pixelRatio);
     const height = Math.floor(window.innerHeight * pixelRatio);
 
